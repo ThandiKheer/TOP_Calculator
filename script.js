@@ -7,9 +7,11 @@ const displayDiv = document.querySelector(".display");
 
 //-----------------------------------------------------//
     displayDiv.style.display = "flex";
-    displayDiv.style.fontSize = "70px";
+    displayDiv.style.flexWrap = "wrap";
+    displayDiv.style.fontSize = "50px";
     displayDiv.style.justifyContent = "flex-End";
     displayDiv.style.alignItems = "center"; 
+    displayDiv.style.padding = "2px";
 
 //-----------------------------------------------------//
 
@@ -55,6 +57,9 @@ function handleEqualsTo(){
         if(operation === "/"){
             result/=nextOperand;
         }
+    }
+    if (Number.isFinite(result)) {
+        result = result.toFixed(2);
     }
     displayDiv.textContent = result;
     operands =[];
