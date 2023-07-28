@@ -117,18 +117,55 @@ function finalResult(value1 , value2 , operation){
 const numberBtn = document.querySelectorAll(".number");
 const operationBtn = document.querySelectorAll(".operation")
 const equalsToBtn = document.querySelector(".equalsTo");
+const cancelBtn = document.querySelector(".cancel");
 const displayDiv = document.querySelector(".display");
 
 numberBtn.forEach(button => button.addEventListener('click',handleNumber));
-//operationBtn.forEach(button => button.addEventListener('click', handleOperation));
-//equalsToBtn.addEventListener('click', handleEqualsTo);
+operationBtn.forEach(button => button.addEventListener('click', handleOperation));
+equalsToBtn.addEventListener('click', handleEqualsTo);
+cancelBtn.addEventListener('click', handleCancel);
+
+let operands = [];
+let operations = [];
 
 function handleNumber(){
-    console.log("hello");
     const number = this.textContent;
-    
     displayDiv.textContent+=number;
-    console.log(number);
+}
+
+function handleOperation(){
+    const operation = this.textContent;
+    operands.push(Number(displayDiv.textContent));
+    operations.push(operation);
+    displayDiv.textContent = '';
+}
+
+function handleEqualsTo(){
+    operands.push(Number(displayDiv.textContent));
+
+    let result = operands[0];
+    for(let i=0;i<operands.length;i++){
+        const operation  = operations[i];
+        const nextOperand = operands[i+1];
+        if(operation === "+"){
+            result+=nextOperand;
+        }
+        if(operation === "-"){
+            result-=nextOperand;
+        }
+        if(operation === "*"){
+            result*=nextOperand;
+        }
+        if(operation === "/"){
+            result/=nextOperand;
+        }
+    }
+    displayDiv.textContent = result;
+    operands =[];
+    operations = [];
+}
+function handleCancel(){
+    displayDiv.textContent = "";
 }
 
 
